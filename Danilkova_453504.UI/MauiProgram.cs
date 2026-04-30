@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using CommunityToolkit.Maui;
+using Danilkova_453504.Application;
+using Danilkova_453504.Persistence;
+using Microsoft.Extensions.Logging;
 
 namespace Danilkova_453504.UI
 {
@@ -9,6 +12,7 @@ namespace Danilkova_453504.UI
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -18,6 +22,12 @@ namespace Danilkova_453504.UI
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
+
+            builder.Services
+                .AddPersistence()
+                .AddApplication();
+
+
 
             return builder.Build();
         }

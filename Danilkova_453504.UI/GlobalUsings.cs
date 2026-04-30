@@ -1,12 +1,2 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Danilkova_453504.UI
-{
-    internal class GlobalUsings
-    {
-    }
-}
+﻿global using MediatR;
+global using Danilkova_453504.Domain.Entities;
