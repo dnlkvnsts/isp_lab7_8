@@ -53,8 +53,7 @@
         
         
         <CollectionView Grid.Row="2"
-                        ItemsSource="{Binding Songs}"
-                        >
+                        ItemsSource="{Binding Songs}">
 
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="15" />
@@ -67,6 +66,13 @@
 
                     <Frame Margin="0" Padding="15" CornerRadius="10"  BackgroundColor="AliceBlue" >
                         <VerticalStackLayout>
+
+                            <VerticalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type models:SingersViewModel}}, Path=ShowSongInformationCommand}"
+                                    CommandParameter="{Binding}" />
+                            </VerticalStackLayout.GestureRecognizers>
+
                             <Label Text="{Binding SongInformation.Name}" FontSize="15" FontAttributes="Bold" TextColor="{Binding Rate,Converter={StaticResource RateToColor}}"/>
                             <Label Text="{Binding Rate}" FontSize="15" TextColor="Gray"/>
                         </VerticalStackLayout>

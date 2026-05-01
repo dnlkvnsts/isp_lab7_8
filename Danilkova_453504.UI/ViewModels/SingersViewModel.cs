@@ -8,6 +8,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Danilkova_453504.Application.SingerUseCases.Queries;
 using Danilkova_453504.Application.SongUseCases.Queries;
+using Danilkova_453504.UI.Pages;
 
 namespace Danilkova_453504.UI.ViewModels
 {
@@ -38,6 +39,21 @@ namespace Danilkova_453504.UI.ViewModels
         [RelayCommand]
         async Task UpdateSongsList() => await GetSongs();
 
+
+        [RelayCommand]
+        async void ShowSongInformation(Song song) => await GoToSongInformationPage(song);
+        
+
+        private async Task GoToSongInformationPage(Song song)
+        {
+            IDictionary<string, object> parameters = new Dictionary<string, object>()
+            {
+                {"Song", song }
+            };
+
+            await Shell.Current.GoToAsync(nameof(SongInformation), parameters);
+        }
+
         public async Task GetSingers()
         {
             var singers = await _mediator.Send(new GetSingersRequest());
@@ -53,6 +69,12 @@ namespace Danilkova_453504.UI.ViewModels
 
         public async Task GetSongs()
         {
+
+            if (SelectedSinger == null)
+            {
+                return;
+            }
+
             var songs = await _mediator.Send(new GetSongsBySingerRequest(SelectedSinger.Id));
             await MainThread.InvokeOnMainThreadAsync(() =>
             {

@@ -1,10 +1,6 @@
 ﻿using Danilkova_453504.UI.Pages;
 using Danilkova_453504.UI.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Danilkova_453504.UI
 {
@@ -15,12 +11,14 @@ namespace Danilkova_453504.UI
         {
 
             services.AddTransient<Singers>();
+            services.AddTransient<SongInformation>();
             return services;
         }
 
         public static IServiceCollection RegisterViewModels(this IServiceCollection services)
         {
             services.AddTransient<SingersViewModel>();
+            services.AddTransient<SongInformationViewModel>();
             return services;
         }
 

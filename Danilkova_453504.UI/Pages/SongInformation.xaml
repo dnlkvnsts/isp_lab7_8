@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Danilkova_453504.UI.Pages.SongInformation"
+             xmlns:models="clr-namespace:Danilkova_453504.UI.ViewModels"
+             x:DataType="models:SongInformationViewModel"
+             Title="SongInformation">
+
+    <VerticalStackLayout Padding="20" Spacing="10">
+
+       
+        <Label Text="{Binding Song.SongInformation.Name}" 
+               FontSize="28" 
+               FontAttributes="Bold" 
+               HorizontalOptions="Center" />
+
+        <BoxView HeightRequest="1" Color="Gray" Margin="0,10" />
+
+        
+        <HorizontalStackLayout Spacing="5">
+            <Label Text="Genre:" FontAttributes="Bold" />
+            <Label Text="{Binding Song.SongInformation.Genre}" />
+        </HorizontalStackLayout>
+
+       
+        <HorizontalStackLayout Spacing="5">
+            <Label Text="Duration:" FontAttributes="Bold" />
+            <Label Text="{Binding Song.SongInformation.Continuation, StringFormat='{0} min'}" />
+        </HorizontalStackLayout>
+
+        
+        <HorizontalStackLayout Spacing="5">
+            <Label Text="Rating:" FontAttributes="Bold" />
+            <Label Text="{Binding Song.Rate, StringFormat='{0}/100'}" 
+                   TextColor="DarkGreen" />
+        </HorizontalStackLayout>
+
+    </VerticalStackLayout>
+</ContentPage>
