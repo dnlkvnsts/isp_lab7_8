@@ -2,11 +2,78 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Danilkova_453504.UI.Pages.Singers"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:models="clr-namespace:Danilkova_453504.UI.ViewModels"
+             xmlns:entities="clr-namespace:Danilkova_453504.Domain.Entities;assembly=Danilkova_453504.Domain"
+             xmlns:conv="clr-namespace:Danilkova_453504.UI.ValueConverters"
+             x:DataType="models:SingersViewModel"
              Title="Singers">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding UpdateSingerListCommand}"/>
+        
+    </ContentPage.Behaviors>
+
+    <ContentPage.Resources>
+        <conv:RateToColorValueConverter x:Key="RateToColor" />
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto,Auto,*" Padding="10" RowSpacing="15">
+        
+        
+        <Picker  Grid.Row="0"
+                 Title="Singers" 
+                 ItemsSource="{Binding Singers}"
+                 ItemDisplayBinding="{Binding Name}"
+                 SelectedItem="{Binding SelectedSinger}">
+            
+            <Picker.Behaviors>
+                <toolkit:EventToCommandBehavior EventName="SelectedIndexChanged"
+                                                Command="{Binding UpdateSongsListCommand}"/>
+            </Picker.Behaviors>
+        </Picker>
+
+        <VerticalStackLayout Grid.Row="1">
+            <Label Text="{Binding SelectedSinger.Name}"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   />
+            <Label Text="{Binding SelectedSinger.Age, StringFormat='Age: {0}'}"
+                   FontSize="15"
+                   
+                   HorizontalOptions="Start"
+                   />
+            <Label Text="{Binding SelectedSinger.Country,StringFormat='Country: {0}'}"
+                   FontSize="15"
+                   
+                   HorizontalOptions="Start"
+                   />
+        </VerticalStackLayout>
+        
+        
+        <CollectionView Grid.Row="2"
+                        ItemsSource="{Binding Songs}"
+                        >
+
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="15" />
+            </CollectionView.ItemsLayout>
+            
+            <CollectionView.ItemTemplate>
+               
+                
+                <DataTemplate x:DataType="entities:Song">
+
+                    <Frame Margin="0" Padding="15" CornerRadius="10"  BackgroundColor="AliceBlue" >
+                        <VerticalStackLayout>
+                            <Label Text="{Binding SongInformation.Name}" FontSize="15" FontAttributes="Bold" TextColor="{Binding Rate,Converter={StaticResource RateToColor}}"/>
+                            <Label Text="{Binding Rate}" FontSize="15" TextColor="Gray"/>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
 </ContentPage>

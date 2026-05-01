@@ -25,8 +25,11 @@ namespace Danilkova_453504.UI
 
             builder.Services
                 .AddPersistence()
-                .AddApplication();
+                .AddApplication()
+                .RegisterPages()
+                .RegisterViewModels();
 
+            
 
 
             return builder.Build();

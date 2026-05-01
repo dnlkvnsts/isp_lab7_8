@@ -15,6 +15,8 @@ namespace Danilkova_453504.UI.ViewModels
     {
         private readonly IMediator _mediator;
 
+
+       
         public SingersViewModel(IMediator mediator)
         {
             _mediator = mediator;

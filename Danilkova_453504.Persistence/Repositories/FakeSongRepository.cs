@@ -17,16 +17,13 @@ namespace Danilkova_453504.Persistence.Repositories
             {
                 for (int j = 1; j <= 10; j++)
                 {
-                    var song = new Song(new SongDetails("Melody", 3.78, "Pop"), 3);
+                    var song = new Song(new SongDetails("Melody", 3.78, "Pop"), j);
                     song.AddSongToSinger(i);
                     _songs.Add(song);
                 }
 
             }
         }
-
-
-
         public async Task<IReadOnlyList<Song>> ListAsync(Expression<Func<Song, bool>> filter,
            CancellationToken cancellationToken = default, params Expression<Func<Song, object>>[]? includesProperties)
         {
