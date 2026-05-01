@@ -7,9 +7,11 @@ namespace Danilkova_453504.Persistence.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            Database.EnsureCreated();
+            
         }
 
+        public DbSet<Singer> Singers { get; set; }
+        public DbSet<Song> Songs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

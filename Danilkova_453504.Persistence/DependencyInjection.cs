@@ -15,7 +15,7 @@ namespace Danilkova_453504.Persistence
     {
         public static IServiceCollection AddPersistence(this  IServiceCollection services)
         {
-            services.AddSingleton<IUnitOfWork,FakeUnitOfWork>();
+            services.AddSingleton<IUnitOfWork,EfUnitOfWork>();
             return services;
         }
 
@@ -27,6 +27,9 @@ namespace Danilkova_453504.Persistence
                 new AppDbContext((DbContextOptions<AppDbContext>)options));
             return services;
         }
+
+   
+
 
 
     }
