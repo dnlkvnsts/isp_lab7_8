@@ -8,6 +8,24 @@
              xmlns:conv="clr-namespace:Danilkova_453504.UI.ValueConverters"
              x:DataType="models:SingersViewModel"
              Title="Singers">
+
+
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add Singer"
+                     Command="{Binding AddSingerToListCommand}"
+                     Order="Primary" />
+
+        <ToolbarItem Text="Add Song"
+             Command="{Binding AddSongToSingerCommand}"
+             Order="Primary" />
+
+    </ContentPage.ToolbarItems>
+    
+    
+    
+    
+    
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded"
                                         Command="{Binding UpdateSingerListCommand}"/>
@@ -32,7 +50,13 @@
                                                 Command="{Binding UpdateSongsListCommand}"/>
             </Picker.Behaviors>
         </Picker>
-
+        
+        
+        
+       
+        
+        
+        
         <VerticalStackLayout Grid.Row="1">
             <Label Text="{Binding SelectedSinger.Name}"
                    FontSize="20"
@@ -52,8 +76,12 @@
         </VerticalStackLayout>
         
         
+        
+        
+        
         <CollectionView Grid.Row="2"
-                        ItemsSource="{Binding Songs}">
+                        ItemsSource="{Binding Songs}"
+                        >
 
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="15" />

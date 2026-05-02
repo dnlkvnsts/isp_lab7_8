@@ -8,6 +8,8 @@ namespace Danilkova_453504.UI
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(SongInformation), typeof(SongInformation));
+            Routing.RegisterRoute(nameof(CreateSinger), typeof(CreateSinger));
+            Routing.RegisterRoute(nameof(CreateSongForSinger), typeof(CreateSongForSinger));
         }
     }
 }

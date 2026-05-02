@@ -13,6 +13,7 @@ namespace Danilkova_453504.UI.ViewModels
         [ObservableProperty]
         private Song song;
 
+
         public SongInformationViewModel()
         {
         }
