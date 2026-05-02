@@ -16,11 +16,11 @@ namespace Danilkova_453504.UI.ViewModels
             _mediator = mediator;
         }
 
-        // Это свойство заполнится автоматически при переходе
+       
         [ObservableProperty]
         private int singerId;
 
-        // Свойства для полей ввода (связаны с Entry в XAML)
+        
         [ObservableProperty]
         private string name;
 
@@ -33,11 +33,11 @@ namespace Danilkova_453504.UI.ViewModels
         [ObservableProperty]
         private int rate;
 
-        // Команда сохранения
+       
         [RelayCommand]
         private async Task SaveSong()
         {
-            // 1. Создаем команду для Application слоя (ту, которую мы писали в начале)
+           
             var command = new AddSongCommand(
                 Name,
                 Continuation,
@@ -45,14 +45,14 @@ namespace Danilkova_453504.UI.ViewModels
                 Rate,
                 SingerId);
 
-            // 2. Отправляем её через MediatR в AddSongCommandHandler
+           
             await _mediator.Send(command);
 
-            // 3. Возвращаемся на предыдущую страницу
+            
             await Shell.Current.GoToAsync("..");
         }
 
-        // Команда отмены
+        
         [RelayCommand]
         private async Task Cancel() => await Shell.Current.GoToAsync("..");
     }

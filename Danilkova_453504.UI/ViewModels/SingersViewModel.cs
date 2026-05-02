@@ -53,6 +53,22 @@ namespace Danilkova_453504.UI.ViewModels
 
         async Task AddSongToSinger() => await AddSong();
 
+        [RelayCommand]
+
+        async Task UpdateSingerFromList() => await UpdateSinger();
+
+
+
+        private async Task UpdateSinger()
+        {
+            if (SelectedSinger == null)
+            {
+                await Shell.Current.DisplayAlert("Ошибка", "Сначала выберите исполнителя из списка!", "OK");
+                return;
+            }
+
+            await Shell.Current.GoToAsync($"{nameof(UpdateSinger)}?SingerId={SelectedSinger.Id}");
+        }
 
         private async Task AddSong()
         {

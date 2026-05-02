@@ -6,6 +6,17 @@
              x:DataType="models:SongInformationViewModel"
              Title="SongInformation">
 
+
+
+
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Update Song"
+                     Command="{Binding UpdateSongOnPageCommand}"
+                     Order="Primary" />
+
+    </ContentPage.ToolbarItems>
+
     <VerticalStackLayout Padding="20" Spacing="10">
 
        

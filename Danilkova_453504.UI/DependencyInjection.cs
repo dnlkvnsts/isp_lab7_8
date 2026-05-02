@@ -13,6 +13,9 @@ namespace Danilkova_453504.UI
             services.AddTransient<Singers>();
             services.AddTransient<SongInformation>();
             services.AddTransient<CreateSongForSinger>();
+            services.AddTransient<CreateSinger>();
+            services.AddTransient<UpdateSinger>();
+            services.AddTransient<UpdateSong>();
            
             return services;
         }
@@ -22,6 +25,9 @@ namespace Danilkova_453504.UI
             services.AddTransient<SingersViewModel>();
             services.AddTransient<SongInformationViewModel>();
             services.AddTransient<CreateSongForSingerViewModel>();
+            services.AddTransient<CreateSingerViewModel>();
+            services.AddTransient<UpdateSingerViewModel>();
+            services.AddTransient<UpdateSongViewModel>();
             return services;
         }
 

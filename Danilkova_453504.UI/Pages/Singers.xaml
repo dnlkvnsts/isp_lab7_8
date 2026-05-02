@@ -20,6 +20,13 @@
              Command="{Binding AddSongToSingerCommand}"
              Order="Primary" />
 
+
+        <ToolbarItem Text="Update Singer"
+            Command="{Binding UpdateSingerFromListCommand}"
+            Order="Primary" />
+
+
+
     </ContentPage.ToolbarItems>
     
     

@@ -3,5 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Danilkova_453504.UI.Pages.CreateSinger"
              Title="Create Singer">
-  
+    
+    <VerticalStackLayout Padding="20" Spacing="15">
+        <Label Text="Add new singer" FontSize="20" FontAttributes="Bold" />
+
+        <Entry Placeholder="Name of singer" 
+       Text="{Binding Name}" />
+
+        <Entry Placeholder="Age" 
+       Text="{Binding Age}" 
+       Keyboard="Numeric" />
+
+        <Entry Placeholder="Country" 
+       Text="{Binding Country}" />
+
+        <Button Text="Save" 
+        Command="{Binding SaveSingerCommand}" 
+        BackgroundColor="Green" 
+        TextColor="White" />
+
+        
+    </VerticalStackLayout>
 </ContentPage>

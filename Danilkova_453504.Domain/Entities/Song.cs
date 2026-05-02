@@ -28,16 +28,26 @@ namespace Danilkova_453504.Domain.Entities
             SingerId = singerId;
         }
 
+
+        public void UpdateSong(string name, double continuation, string genre, int rate)
+        {
+            SongInformation = new SongDetails(name, continuation, genre);
+            ChangeRate(rate);
+        }
+
+
+        public void ChangeRate(int rate)
+        {
+            if (rate <= 0 || rate > 100) return;
+            Rate = rate;
+        }
+
         public void TakeSongFromSinger()
         {
             SingerId = 0;
         }
 
-        public void ChangeRate(int rate)
-        {
-            if (rate <= 0 || rate >100) return;
-            Rate = rate;
-        }
+    
 
     }
 }

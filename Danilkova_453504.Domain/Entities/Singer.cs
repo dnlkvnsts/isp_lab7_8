@@ -30,5 +30,12 @@ namespace Danilkova_453504.Domain.Entities
 
         public IReadOnlyList<Song> Songs { get => _songs.AsReadOnly(); }
 
+
+        public void UpdateSinger(string name, int age, string country)
+        {
+            Name = name;
+            Age = age;
+            Country = country;
+        }
     }
 }
