@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Danilkova_453504.Application.SingerUseCases.Queries;
 using Danilkova_453504.Application.SongUseCases.Commands;
 using Danilkova_453504.Application.SongUseCases.Queries;
 using Danilkova_453504.Domain.Entities;
@@ -23,6 +24,11 @@ namespace Danilkova_453504.UI.ViewModels
         private int songId;
 
 
+        [ObservableProperty]
+        private IEnumerable<Singer> singers;
+
+        [ObservableProperty]
+        private Singer selectedSinger;
 
         public SongInformationViewModel(IMediator mediator)
         {
@@ -39,6 +45,17 @@ namespace Danilkova_453504.UI.ViewModels
 
         async Task DeleteSongOnPage() => await DeleteSong();
 
+
+        [RelayCommand]
+
+        async Task LoadSongData() => await LoadSong();
+
+        [RelayCommand]
+
+        async Task AlterSingerOfSong() => await AlterSinger();
+
+
+      
 
         private async Task DeleteSong()
         {
@@ -64,11 +81,45 @@ namespace Danilkova_453504.UI.ViewModels
             await Shell.Current.GoToAsync($"{nameof(UpdateSong)}?SongId={SongId}");
         }
 
-        [RelayCommand]
-        public async Task LoadSongData()
+        
+        private async Task LoadSong()
         {
-            
-            Song = await _mediator.Send(new GetSongByIdQuery(SongId));
+
+
+            var songTask = _mediator.Send(new GetSongByIdQuery(SongId));
+            var singersTask = _mediator.Send(new GetSingersRequest());
+
+            await Task.WhenAll(songTask, singersTask);
+
+            var updatedSong = await songTask;
+            Singers = await singersTask;
+
+            if (updatedSong != null)
+            {
+                Song = null;
+                Song = updatedSong;
+            }
         }
+
+        private async Task AlterSinger()
+        {
+            if (SelectedSinger == null)
+            {
+                await Shell.Current.DisplayAlert("Ошибка", "Выберите певца из списка", "OK");
+                return;
+            }
+
+            var result = await _mediator.Send(new AlterSingerCommand(SongId, SelectedSinger.Id));
+
+            if (result)
+            {
+                await LoadSong(); 
+                await Shell.Current.DisplayAlert("Успех", "Исполнитель изменен", "OK");
+
+                await Shell.Current.GoToAsync("..");
+            }
+
+        }
+
     }
 }

@@ -20,8 +20,24 @@
     </ContentPage.ToolbarItems>
 
     <VerticalStackLayout Padding="20" Spacing="10">
+        <VerticalStackLayout Spacing="10" Padding="20">
 
-       
+            <Label Text="Сменить исполнителя:" FontSize="Medium" FontAttributes="Bold"/>
+
+           
+            <Picker Title="Выберите исполнителя"
+            ItemsSource="{Binding Singers}"
+            ItemDisplayBinding="{Binding Name}" 
+            SelectedItem="{Binding SelectedSinger}" />
+
+            
+            <Button Text="Take"
+            Command="{Binding AlterSingerOfSongCommand}"
+            BackgroundColor="MediumPurple"
+            TextColor="White" />
+
+        </VerticalStackLayout>
+
         <Label Text="{Binding Song.SongInformation.Name}" 
                FontSize="28" 
                FontAttributes="Bold" 

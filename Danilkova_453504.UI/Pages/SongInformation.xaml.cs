@@ -16,6 +16,8 @@ public partial class SongInformation : ContentPage
         base.OnAppearing();
         
         var viewModel = BindingContext as SongInformationViewModel;
+
         viewModel?.LoadSongDataCommand.Execute(null);
+       
     }
 }

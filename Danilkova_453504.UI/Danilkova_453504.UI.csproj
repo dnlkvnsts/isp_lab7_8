@@ -87,24 +87,7 @@
 	  <ProjectReference Include="..\Danilkova_453504.Persistence\Danilkova_453504.Persistence.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <MauiXaml Update="Pages\CreateSinger.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Pages\CreateSongForSinger.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Pages\SongInformation.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Pages\UpdateSinger.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Pages\UpdateSong.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	</ItemGroup>
-
+	
 
 
 </Project>

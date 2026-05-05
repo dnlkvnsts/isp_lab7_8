@@ -99,6 +99,9 @@ namespace Danilkova_453504.UI.ViewModels
 
         public async Task GetSingers()
         {
+
+            var selectedId = SelectedSinger?.Id;
+
             var singers = await _mediator.Send(new GetSingersRequest());
             await MainThread.InvokeOnMainThreadAsync(() =>
             {
@@ -107,6 +110,12 @@ namespace Danilkova_453504.UI.ViewModels
                 {
                     Singers.Add(singer);
                 }
+
+                if (selectedId != null && selectedId != 0)
+                {
+                    SelectedSinger = Singers.FirstOrDefault(s => s.Id == selectedId);
+                }
+
             });
         }
 

@@ -51,7 +51,15 @@ namespace Danilkova_453504.Domain.Entities
         {
 
         }
-    
+
+        public void ChangeSinger(int newSingerId)
+        {
+            if (newSingerId <= 0)
+                throw new ArgumentException("Singer's Id must be positive");
+
+            SingerId = newSingerId;
+        }
+
 
     }
 }
