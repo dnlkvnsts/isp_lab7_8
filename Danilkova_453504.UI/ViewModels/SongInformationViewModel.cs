@@ -17,6 +17,9 @@ namespace Danilkova_453504.UI.ViewModels
     {
         private readonly IMediator _mediator;
 
+
+        private string ImagesPath => Path.Combine(FileSystem.AppDataDirectory, "Images");
+
         [ObservableProperty]
         private Song song;
 
@@ -33,6 +36,11 @@ namespace Danilkova_453504.UI.ViewModels
         public SongInformationViewModel(IMediator mediator)
         {
             _mediator = mediator;
+
+            if (!Directory.Exists(ImagesPath))
+            {
+                Directory.CreateDirectory(ImagesPath);
+            }
         }
 
 
@@ -54,6 +62,9 @@ namespace Danilkova_453504.UI.ViewModels
 
         async Task AlterSingerOfSong() => await AlterSinger();
 
+        [RelayCommand]
+
+        async Task PickImageOnPage() => await PickImage();
 
       
 
@@ -119,6 +130,45 @@ namespace Danilkova_453504.UI.ViewModels
                 await Shell.Current.GoToAsync("..");
             }
 
+        }
+        
+
+        private async Task PickImage()
+        {
+            var result = await FilePicker.Default.PickAsync(new PickOptions
+            {
+                PickerTitle = "Выберите обложку песни",
+                FileTypes = FilePickerFileType.Images
+            });
+
+            if (result != null)
+            {
+               
+                var extension = Path.GetExtension(result.FileName);
+                var targetFileName = Path.Combine(ImagesPath, $"{SongId}{extension}");
+
+               
+                string[] extensions = { ".jpg", ".png", ".jpeg" };
+                foreach (var ext in extensions)
+                {
+                    var oldFile = Path.Combine(ImagesPath, $"{SongId}{ext}");
+                    if (File.Exists(oldFile)) File.Delete(oldFile);
+                }
+
+               
+                using (var stream = await result.OpenReadAsync())
+                using (var newStream = File.OpenWrite(targetFileName))
+                {
+                    await stream.CopyToAsync(newStream);
+                }
+
+               
+                var tempId = SongId;
+                SongId = 0;
+                SongId = tempId;
+
+                await Shell.Current.DisplayAlert("Успех", "Обложка песни обновлена", "OK");
+            }
         }
 
     }

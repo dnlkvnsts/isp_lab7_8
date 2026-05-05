@@ -4,39 +4,63 @@
              x:Class="Danilkova_453504.UI.Pages.SongInformation"
              xmlns:models="clr-namespace:Danilkova_453504.UI.ViewModels"
              x:DataType="models:SongInformationViewModel"
+             xmlns:conv="clr-namespace:Danilkova_453504.UI.ValueConverters"
              Title="SongInformation">
 
 
-
-
+    <ContentPage.Resources>
+        <conv:IdToImageConverter x:Key="IdToImage" />
+    </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Update Song"
-                     Command="{Binding UpdateSongOnPageCommand}"
-                     Order="Primary" />
-        <ToolbarItem Text="Delete Song"
-             Command="{Binding DeleteSongOnPageCommand}"
-             Order="Primary" />
+        <ToolbarItem Text="Edit Photo" Command="{Binding PickImageOnPageCommand}" />
+        <ToolbarItem Text="Edit" Command="{Binding UpdateSongOnPageCommand}" />
+        <ToolbarItem Text="Delete" Command="{Binding DeleteSongOnPageCommand}" />
     </ContentPage.ToolbarItems>
 
+    
     <VerticalStackLayout Padding="20" Spacing="10">
-        <VerticalStackLayout Spacing="10" Padding="20">
+        <Frame Margin="0,10"
+                   Padding="10" 
+                   CornerRadius="8" 
+                   HasShadow="True" 
+                   BorderColor="LightGray"
+                   HorizontalOptions="Center"
+                   BackgroundColor="White">
 
-            <Label Text="Сменить исполнителя:" FontSize="Medium" FontAttributes="Bold"/>
+            <Image Source="{Binding SongId, Converter={StaticResource IdToImage}}"
+                       HeightRequest="250"
+                       WidthRequest="250"
+                       Aspect="AspectFill">
+                
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding PickImageOnPageCommand}" />
+                </Image.GestureRecognizers>
+            </Image>
+        </Frame>
 
-           
-            <Picker Title="Выберите исполнителя"
-            ItemsSource="{Binding Singers}"
-            ItemDisplayBinding="{Binding Name}" 
-            SelectedItem="{Binding SelectedSinger}" />
+        <Frame BackgroundColor="#F8F8F8" CornerRadius="10" BorderColor="#E0E0E0" Padding="15">
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Assign Singer" FontSize="14" FontAttributes="Bold" TextColor="MediumPurple" />
 
-            
-            <Button Text="Take"
-            Command="{Binding AlterSingerOfSongCommand}"
-            BackgroundColor="MediumPurple"
-            TextColor="White" />
+                <Grid ColumnDefinitions="*, Auto" ColumnSpacing="10">
+                    <Picker Grid.Column="0"
+                                Title="Select singer..."
+                                ItemsSource="{Binding Singers}"
+                                ItemDisplayBinding="{Binding Name}" 
+                                SelectedItem="{Binding SelectedSinger}"
+                                VerticalOptions="Center" />
 
-        </VerticalStackLayout>
+                    <Button Grid.Column="1"
+                                Text="Apply"
+                                Command="{Binding AlterSingerOfSongCommand}"
+                                BackgroundColor="MediumPurple"
+                                TextColor="White"
+                                HeightRequest="40"
+                                Padding="15,0" />
+                </Grid>
+            </VerticalStackLayout>
+        </Frame>
 
         <Label Text="{Binding Song.SongInformation.Name}" 
                FontSize="28" 

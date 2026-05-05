@@ -59,6 +59,7 @@ namespace Danilkova_453504.UI.ViewModels
 
 
 
+
         private async Task UpdateSinger()
         {
             if (SelectedSinger == null)

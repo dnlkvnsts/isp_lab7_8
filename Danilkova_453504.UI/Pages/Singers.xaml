@@ -41,6 +41,7 @@
 
     <ContentPage.Resources>
         <conv:RateToColorValueConverter x:Key="RateToColor" />
+        <conv:IdToImageConverter x:Key="IdToImage" />
     </ContentPage.Resources>
 
     <Grid RowDefinitions="Auto,Auto,*" Padding="10" RowSpacing="15">
@@ -100,17 +101,36 @@
                 <DataTemplate x:DataType="entities:Song">
 
                     <Frame Margin="0" Padding="15" CornerRadius="10"  BackgroundColor="AliceBlue" >
-                        <VerticalStackLayout>
 
-                            <VerticalStackLayout.GestureRecognizers>
-                                <TapGestureRecognizer 
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type models:SingersViewModel}}, Path=ShowSongInformationCommand}"
-                                    CommandParameter="{Binding}" />
-                            </VerticalStackLayout.GestureRecognizers>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type models:SingersViewModel}}, Path=ShowSongInformationCommand}"
+                                CommandParameter="{Binding}" />
+                        </Frame.GestureRecognizers>
 
-                            <Label Text="{Binding SongInformation.Name}" FontSize="15" FontAttributes="Bold" TextColor="{Binding Rate,Converter={StaticResource RateToColor}}"/>
+                        <HorizontalStackLayout Spacing="15" VerticalOptions="Center">
+                          
+                            <Frame CornerRadius="30" 
+                                HeightRequest="60" 
+                                WidthRequest="60" 
+                                Padding="0" 
+                                HorizontalOptions="Start"
+                                IsClippedToBounds="True"
+                                BorderColor="Gray">
+
+                                <Image Source="{Binding Id, Converter={StaticResource IdToImage}}"
+                                    Aspect="AspectFill" 
+                                    HeightRequest="60" 
+                                    WidthRequest="60" />
+                            </Frame>
+
+                            <Label Text="{Binding SongInformation.Name}" 
+                                   VerticalOptions="Center" 
+                                   FontSize="18" />
                             <Label Text="{Binding Rate}" FontSize="15" TextColor="Gray"/>
-                        </VerticalStackLayout>
+                           
+                        </HorizontalStackLayout>
+                       
                     </Frame>
 
                 </DataTemplate>

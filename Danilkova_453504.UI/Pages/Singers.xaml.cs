@@ -25,5 +25,7 @@ public partial class Singers : ContentPage
 
       
          viewModel.UpdateSingerListCommand.Execute(null);
+
+     
     }
 }

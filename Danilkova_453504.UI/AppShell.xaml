@@ -7,13 +7,24 @@
     xmlns:pages="clr-namespace:Danilkova_453504.UI.Pages"
     Title="Danilkova_453504.UI">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
-    <ShellContent
-        Title="Singers list"
-        ContentTemplate="{DataTemplate pages:Singers}"
-        Route="Singers" />
+    <FlyoutItem Title="Main Page">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="FASolid" 
+                         Glyph="&#xf015;" 
+                         Size="20" 
+                         Color="Gray"/>
+        </FlyoutItem.Icon>
+        <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Singers">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="FASolid" 
+                         Glyph="&#xf001;" 
+                         Size="20" 
+                         Color="Gray"/>
+        </FlyoutItem.Icon>
+        <ShellContent ContentTemplate="{DataTemplate pages:Singers}" />
+    </FlyoutItem>
 
 </Shell>
