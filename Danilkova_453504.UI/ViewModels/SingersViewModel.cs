@@ -41,7 +41,7 @@ namespace Danilkova_453504.UI.ViewModels
 
 
         [RelayCommand]
-        async void ShowSongInformation(Song song) => await GoToSongInformationPage(song);
+        async Task ShowSongInformation(Song song) => await GoToSongInformationPage(song);
 
 
         [RelayCommand]
@@ -87,16 +87,14 @@ namespace Danilkova_453504.UI.ViewModels
         {
             await Shell.Current.GoToAsync(nameof(CreateSinger));
         }
-        
+
 
         private async Task GoToSongInformationPage(Song song)
         {
-            IDictionary<string, object> parameters = new Dictionary<string, object>()
-            {
-                {"Song", song }
-            };
+            if (song == null) return; 
 
-            await Shell.Current.GoToAsync(nameof(SongInformation), parameters);
+           
+            await Shell.Current.GoToAsync($"{nameof(SongInformation)}?SongId={song.Id}");
         }
 
         public async Task GetSingers()

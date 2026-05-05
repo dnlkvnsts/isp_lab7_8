@@ -10,4 +10,12 @@ public partial class SongInformation : ContentPage
 		InitializeComponent();
 		this.BindingContext = viewModel;
 	}
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        
+        var viewModel = BindingContext as SongInformationViewModel;
+        viewModel?.LoadSongDataCommand.Execute(null);
+    }
 }

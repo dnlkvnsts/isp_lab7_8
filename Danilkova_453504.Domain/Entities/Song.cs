@@ -47,6 +47,10 @@ namespace Danilkova_453504.Domain.Entities
             SingerId = 0;
         }
 
+        public void DeleteSong()
+        {
+
+        }
     
 
     }

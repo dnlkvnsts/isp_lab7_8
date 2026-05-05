@@ -14,7 +14,9 @@
         <ToolbarItem Text="Update Song"
                      Command="{Binding UpdateSongOnPageCommand}"
                      Order="Primary" />
-
+        <ToolbarItem Text="Delete Song"
+             Command="{Binding DeleteSongOnPageCommand}"
+             Order="Primary" />
     </ContentPage.ToolbarItems>
 
     <VerticalStackLayout Padding="20" Spacing="10">
