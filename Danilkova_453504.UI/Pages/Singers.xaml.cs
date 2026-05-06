@@ -10,22 +10,20 @@ public partial class Singers : ContentPage
 		this.BindingContext = viewModel;
 	}
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing() 
     {
         base.OnAppearing();
 
-
         var viewModel = BindingContext as SingersViewModel;
+        if (viewModel == null) return;
 
+        
+        await viewModel.UpdateSingerListCommand.ExecuteAsync(null);
 
-        if (viewModel?.SelectedSinger != null)
+        
+        if (viewModel.SelectedSinger != null)
         {
-            viewModel.UpdateSongsListCommand.Execute(null);
+            await viewModel.UpdateSongsListCommand.ExecuteAsync(null);
         }
-
-      
-         viewModel.UpdateSingerListCommand.Execute(null);
-
-     
     }
 }

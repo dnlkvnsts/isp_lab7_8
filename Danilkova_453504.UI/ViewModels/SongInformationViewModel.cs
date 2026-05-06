@@ -143,11 +143,10 @@ namespace Danilkova_453504.UI.ViewModels
 
             if (result != null)
             {
-               
-                var extension = Path.GetExtension(result.FileName);
-                var targetFileName = Path.Combine(ImagesPath, $"{SongId}{extension}");
 
-               
+                var targetFileName = Path.Combine(ImagesPath, $"{SongId}.jpg");
+
+
                 string[] extensions = { ".jpg", ".png", ".jpeg" };
                 foreach (var ext in extensions)
                 {
@@ -157,7 +156,7 @@ namespace Danilkova_453504.UI.ViewModels
 
                
                 using (var stream = await result.OpenReadAsync())
-                using (var newStream = File.OpenWrite(targetFileName))
+                using (var newStream = File.Create(targetFileName))
                 {
                     await stream.CopyToAsync(newStream);
                 }

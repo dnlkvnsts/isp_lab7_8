@@ -11,7 +11,7 @@ namespace Danilkova_453504.UI.ValueConverters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null) return "dotnet_bot.png";
+            if (value == null) return ImageSource.FromFile("dotnet_bot.png");
 
             string id = value.ToString();
             

@@ -1,14 +1,15 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Danilkova_453504.Application.SingerUseCases.Queries;
+using Danilkova_453504.Application.SongUseCases.Queries;
+using Danilkova_453504.Domain.Entities;
+using Danilkova_453504.UI.Pages;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using Danilkova_453504.Application.SingerUseCases.Queries;
-using Danilkova_453504.Application.SongUseCases.Queries;
-using Danilkova_453504.UI.Pages;
 
 namespace Danilkova_453504.UI.ViewModels
 {
@@ -25,7 +26,9 @@ namespace Danilkova_453504.UI.ViewModels
 
 
         public ObservableCollection<Singer> Singers { get; set; } = new();
-        public ObservableCollection<Song> Songs { get; set; } = new();
+
+        [ObservableProperty]
+        ObservableCollection<Song> songs = new();
 
 
         [ObservableProperty]
@@ -128,14 +131,11 @@ namespace Danilkova_453504.UI.ViewModels
                 return;
             }
 
-            var songs = await _mediator.Send(new GetSongsBySingerRequest(SelectedSinger.Id));
+            var resultSongs = await _mediator.Send(new GetSongsBySingerRequest(SelectedSinger.Id));
+
             await MainThread.InvokeOnMainThreadAsync(() =>
             {
-                Songs.Clear();
-                foreach (var song in songs)
-                {
-                    Songs.Add(song);
-                }
+                Songs = new ObservableCollection<Song>(resultSongs);
             });
         }
 

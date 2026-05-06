@@ -11,13 +11,15 @@ public partial class SongInformation : ContentPage
 		this.BindingContext = viewModel;
 	}
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing() // добавили async
     {
         base.OnAppearing();
-        
+
         var viewModel = BindingContext as SongInformationViewModel;
 
-        viewModel?.LoadSongDataCommand.Execute(null);
-       
+        if (viewModel != null)
+        {
+            await viewModel.LoadSongDataCommand.ExecuteAsync(null); // используем ExecuteAsync
+        }
     }
 }
