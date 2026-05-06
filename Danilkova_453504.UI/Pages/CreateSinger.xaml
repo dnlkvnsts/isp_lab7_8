@@ -2,8 +2,6 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Danilkova_453504.UI.Pages.CreateSinger"
-             xmlns:models="clr-namespace:Danilkova_453504.UI.ViewModels"
-             
              Title="New Artist"
              BackgroundColor="#121212"
              Shell.BackgroundColor="#121212"
@@ -11,24 +9,6 @@
 
     <Shell.TitleView>
         <Grid ColumnDefinitions="Auto, Auto, *" Padding="10,0,20,0" ColumnSpacing="20">
-
-            <!-- Кнопка Назад/Отмена (имитация) -->
-            <Label Grid.Column="0"
-                   Text="Cancel"
-                   TextColor="#FF5252" 
-                   FontAttributes="Bold"
-                   FontSize="14"
-                   VerticalOptions="Center">
-                <Label.GestureRecognizers>
-                    <!-- Используем стандартный переход назад, если нет специальной команды -->
-                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=Navigation.PopAsync}" />
-                </Label.GestureRecognizers>
-            </Label>
-
-            
-           
-
-            <!-- Логотип MUSIC -->
             <Label Grid.Column="2" 
                    Text="MUSIC" 
                    TextColor="White"
@@ -51,22 +31,22 @@
                    HorizontalOptions="Center"
                    Margin="0,10,0,10"/>
 
-            <!-- Поле: Имя исполнителя -->
+            
             <VerticalStackLayout Spacing="5">
                 <Label Text="Artist Name" TextColor="#8E8E93" FontSize="13" Margin="5,0"/>
                 <Border BackgroundColor="#252525" StrokeThickness="0" StrokeShape="RoundRectangle 10" Padding="15,0">
-                    <Entry Text="{Binding Name}" 
+                    <Entry Text="{Binding Name, UpdateSourceEventName=TextChanged}" 
                            Placeholder="Enter name..." 
                            PlaceholderColor="#555555"
                            TextColor="White" />
                 </Border>
             </VerticalStackLayout>
 
-            <!-- Поле: Возраст -->
+            
             <VerticalStackLayout Spacing="5">
                 <Label Text="Age" TextColor="#8E8E93" FontSize="13" Margin="5,0"/>
                 <Border BackgroundColor="#252525" StrokeThickness="0" StrokeShape="RoundRectangle 10" Padding="15,0">
-                    <Entry Text="{Binding Age}" 
+                    <Entry Text="{Binding Age, UpdateSourceEventName=TextChanged}" 
                            Placeholder="e.g. 25" 
                            Keyboard="Numeric"
                            PlaceholderColor="#555555"
@@ -74,18 +54,18 @@
                 </Border>
             </VerticalStackLayout>
 
-            <!-- Поле: Страна -->
+            
             <VerticalStackLayout Spacing="5">
                 <Label Text="Country" TextColor="#8E8E93" FontSize="13" Margin="5,0"/>
                 <Border BackgroundColor="#252525" StrokeThickness="0" StrokeShape="RoundRectangle 10" Padding="15,0">
-                    <Entry Text="{Binding Country}" 
+                    <Entry Text="{Binding Country, UpdateSourceEventName=TextChanged}" 
                            Placeholder="e.g. USA, UK" 
                            PlaceholderColor="#555555"
                            TextColor="White" />
                 </Border>
             </VerticalStackLayout>
 
-            <!-- Большая кнопка Сохранить -->
+            
             <Button Text="SAVE SINGER" 
                     Command="{Binding SaveSingerCommand}" 
                     BackgroundColor="#1DB954" 
@@ -93,7 +73,21 @@
                     FontAttributes="Bold"
                     CornerRadius="25"
                     HeightRequest="50"
-                    Margin="0,30,0,0" />
+                    Margin="0,30,0,0">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="Opacity" Value="0.5" />
+                                    <Setter Property="BackgroundColor" Value="#444444" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
 
         </VerticalStackLayout>
     </ScrollView>

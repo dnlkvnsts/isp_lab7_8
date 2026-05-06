@@ -9,8 +9,6 @@
 
     <Shell.TitleView>
         <Grid ColumnDefinitions="Auto, Auto, *" Padding="10,0,20,0" ColumnSpacing="20">
-
-            <!-- Кнопка Отмена -->
             <Label Grid.Column="0"
                    Text="Cancel"
                    TextColor="#FF5252" 
@@ -18,12 +16,10 @@
                    FontSize="14"
                    VerticalOptions="Center">
                 <Label.GestureRecognizers>
-                    <!-- Если команды CancelCommand нет, можно заменить на возврат назад через Shell -->
                     <TapGestureRecognizer Command="{Binding CancelCommand}" />
                 </Label.GestureRecognizers>
             </Label>
 
-            <!-- Логотип MUSIC -->
             <Label Grid.Column="2" 
                    Text="MUSIC" 
                    TextColor="White"
@@ -50,7 +46,7 @@
             <VerticalStackLayout Spacing="5">
                 <Label Text="Artist Name" TextColor="#8E8E93" FontSize="13" Margin="5,0"/>
                 <Border BackgroundColor="#252525" StrokeThickness="0" StrokeShape="RoundRectangle 10" Padding="15,0">
-                    <Entry Text="{Binding Name}" 
+                    <Entry Text="{Binding Name, UpdateSourceEventName=TextChanged}" 
                            Placeholder="Name" 
                            PlaceholderColor="#555555"
                            TextColor="White" />
@@ -61,7 +57,7 @@
             <VerticalStackLayout Spacing="5">
                 <Label Text="Age" TextColor="#8E8E93" FontSize="13" Margin="5,0"/>
                 <Border BackgroundColor="#252525" StrokeThickness="0" StrokeShape="RoundRectangle 10" Padding="15,0">
-                    <Entry Text="{Binding Age}" 
+                    <Entry Text="{Binding Age, UpdateSourceEventName=TextChanged, TargetNullValue=''}" 
                            Placeholder="Age" 
                            Keyboard="Numeric"
                            PlaceholderColor="#555555"
@@ -73,22 +69,36 @@
             <VerticalStackLayout Spacing="5">
                 <Label Text="Country" TextColor="#8E8E93" FontSize="13" Margin="5,0"/>
                 <Border BackgroundColor="#252525" StrokeThickness="0" StrokeShape="RoundRectangle 10" Padding="15,0">
-                    <Entry Text="{Binding Country}" 
+                    <Entry Text="{Binding Country, UpdateSourceEventName=TextChanged}" 
                            Placeholder="Country" 
                            PlaceholderColor="#555555"
                            TextColor="White" />
                 </Border>
             </VerticalStackLayout>
 
-            <!-- Большая кнопка Сохранить внизу -->
-            <Button Text="SAVE " 
+            <!-- Кнопка Сохранить с VSM -->
+            <Button Text="SAVE CHANGES" 
                     Command="{Binding UpdateSingerCommand}" 
                     BackgroundColor="#1DB954" 
                     TextColor="Black"
                     FontAttributes="Bold"
                     CornerRadius="25"
                     HeightRequest="50"
-                    Margin="0,30,0,0" />
+                    Margin="0,30,0,0">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#444444" />
+                                    <Setter Property="Opacity" Value="0.6" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
 
         </VerticalStackLayout>
     </ScrollView>
