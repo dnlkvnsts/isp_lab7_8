@@ -7,36 +7,68 @@
              xmlns:entities="clr-namespace:Danilkova_453504.Domain.Entities;assembly=Danilkova_453504.Domain"
              xmlns:conv="clr-namespace:Danilkova_453504.UI.ValueConverters"
              x:DataType="models:SingersViewModel"
-             Title="Singers">
+             Title="Singers"
+             BackgroundColor="#121212"
+             Shell.BackgroundColor="#121212"
+             Shell.ForegroundColor="White"
+             Shell.TitleColor="White"
+             Shell.UnselectedColor="#888888">
 
+    <Shell.TitleView>
+        <Grid ColumnDefinitions="Auto, Auto, Auto, *" Padding="10,0" ColumnSpacing="15" VerticalOptions="Fill">
 
+           
+            <Label Grid.Column="0"
+               Text="Add Singer"
+               TextColor="White" 
+               FontAttributes="Bold"
+               FontSize="13"
+               VerticalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding AddSingerToListCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
 
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add Singer"
-                     Command="{Binding AddSingerToListCommand}"
-                     Order="Primary" />
+          
+            <Label Grid.Column="1"
+               Text="Add Song"
+               TextColor="White"
+               FontAttributes="Bold"
+               FontSize="13"
+               VerticalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding AddSongToSingerCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
 
-        <ToolbarItem Text="Add Song"
-             Command="{Binding AddSongToSingerCommand}"
-             Order="Primary" />
+           
+            <Label Grid.Column="2"
+               Text="Edit Singer"
+               TextColor="White"
+               FontAttributes="Bold"
+               FontSize="13"
+               VerticalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding UpdateSingerFromListCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
 
+         
+            <Label Grid.Column="3" 
+               Text="MUSIC " 
+               TextColor="White"
+               FontAttributes="Bold"
+               FontSize="18"
+               VerticalOptions="Center"
+               HorizontalOptions="End" 
+               Margin="0,0,20,0"
+               CharacterSpacing="2"/>
 
-        <ToolbarItem Text="Update Singer"
-            Command="{Binding UpdateSingerFromListCommand}"
-            Order="Primary" />
+        </Grid>
+    </Shell.TitleView>
 
-
-
-    </ContentPage.ToolbarItems>
-    
-    
-    
-    
-    
     <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior EventName="Loaded"
-                                        Command="{Binding UpdateSingerListCommand}"/>
-        
+        <toolkit:EventToCommandBehavior EventName="Loaded" Command="{Binding UpdateSingerListCommand}"/>
     </ContentPage.Behaviors>
 
     <ContentPage.Resources>
@@ -44,95 +76,147 @@
         <conv:IdToImageConverter x:Key="IdToImage" />
     </ContentPage.Resources>
 
-    <Grid RowDefinitions="Auto,Auto,*" Padding="10" RowSpacing="15">
-        
-        
-        <Picker  Grid.Row="0"
-                 Title="Singers" 
-                 ItemsSource="{Binding Singers}"
-                 ItemDisplayBinding="{Binding Name}"
-                 SelectedItem="{Binding SelectedSinger}">
-            
-            <Picker.Behaviors>
-                <toolkit:EventToCommandBehavior EventName="SelectedIndexChanged"
-                                                Command="{Binding UpdateSongsListCommand}"/>
-            </Picker.Behaviors>
-        </Picker>
-        
-        
-        
-       
-        
-        
-        
-        <VerticalStackLayout Grid.Row="1">
-            <Label Text="{Binding SelectedSinger.Name}"
-                   FontSize="20"
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center"
-                   />
-            <Label Text="{Binding SelectedSinger.Age, StringFormat='Age: {0}'}"
-                   FontSize="15"
-                   
-                   HorizontalOptions="Start"
-                   />
-            <Label Text="{Binding SelectedSinger.Country,StringFormat='Country: {0}'}"
-                   FontSize="15"
-                   
-                   HorizontalOptions="Start"
-                   />
-        </VerticalStackLayout>
-        
-        
-        
-        
-        
-        <CollectionView Grid.Row="2"
-                        ItemsSource="{Binding Songs}"
-                        >
+    <Grid RowDefinitions="Auto, Auto, *" Padding="20,15,20,0" RowSpacing="25">
 
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" ItemSpacing="15" />
-            </CollectionView.ItemsLayout>
-            
-            <CollectionView.ItemTemplate>
+
+        <Border Grid.Row="0" 
+        StrokeThickness="2"
+        StrokeShape="RoundRectangle 15"
+        BackgroundColor="#252525" 
+        Margin="0,5"
+        HeightRequest="60">
+
+            <!-- Свечение (тень) -->
+            <Border.Shadow>
+                <Shadow Brush="#1DB954" Offset="0,0" Radius="10" Opacity="0.4" />
+            </Border.Shadow>
+
+            <!-- Градиентная рамка -->
+            <Border.Stroke>
+                <LinearGradientBrush EndPoint="1,0">
+                    <GradientStop Color="#1DB954" Offset="0.1" />
+                    <GradientStop Color="#191414" Offset="1.0" />
+                </LinearGradientBrush>
+            </Border.Stroke>
+
+            <!-- Сетка внутри: Иконка | Пикер | Стрелочка -->
+            <Grid ColumnDefinitions="50, *" Padding="10,0">
+
+                <!-- Иконка артиста (слева) -->
+                <Label Grid.Column="0" 
+               Text="🎙️" 
+               FontSize="20" 
+               VerticalOptions="Center" 
+               HorizontalOptions="Center" />
+
+                <Picker Grid.Column="1"
+                TextColor="Black"
+                BackgroundColor="White"
+                FontSize="16"
+                FontAttributes="Bold"
+                VerticalOptions="Center"
+                ItemsSource="{Binding Singers}"
+                ItemDisplayBinding="{Binding Name}"
+                SelectedItem="{Binding SelectedSinger}">
+
+                    <Picker.Behaviors>
+                        <toolkit:EventToCommandBehavior EventName="SelectedIndexChanged"
+                                                Command="{Binding UpdateSongsListCommand}"/>
+                    </Picker.Behaviors>
+                </Picker>
+
                
-                
+            </Grid>
+        </Border>
+
+        <VerticalStackLayout Grid.Row="1" Spacing="8" HorizontalOptions="Center" Margin="0,10,0,10">
+            <Label Text="{Binding SelectedSinger.Name}"
+                   FontSize="32"
+                   FontAttributes="Bold"
+                   TextColor="#FFFFFF"
+                   HorizontalOptions="Center" />
+
+            <!-- Возраст и Страна в одну красивую строку -->
+            <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                <Label Text="{Binding SelectedSinger.Age, StringFormat='Age: {0}'}"
+                       FontSize="14"
+                       TextColor="#A0A0A0" />
+                <Label Text="•" FontSize="14" TextColor="#A0A0A0" />
+                <Label Text="{Binding SelectedSinger.Country}"
+                       FontSize="14"
+                       TextColor="#A0A0A0" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+
+        <!-- 3. Список песен (в стиле трек-листа) -->
+        <CollectionView Grid.Row="2" ItemsSource="{Binding Songs}">
+
+            <!-- Прокрутка без визуального обрезания теней -->
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="12" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="entities:Song">
 
-                    <Frame Margin="0" Padding="15" CornerRadius="10"  BackgroundColor="AliceBlue" >
+                    <!-- Карточка песни (Border вместо Frame) -->
+                    <Border Stroke="Transparent" 
+                            BackgroundColor="#1C1C1E" 
+                            Padding="12" 
+                            StrokeShape="RoundRectangle 16">
 
-                        <Frame.GestureRecognizers>
+                        <Border.GestureRecognizers>
                             <TapGestureRecognizer 
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type models:SingersViewModel}}, Path=ShowSongInformationCommand}"
                                 CommandParameter="{Binding}" />
-                        </Frame.GestureRecognizers>
+                        </Border.GestureRecognizers>
 
-                        <HorizontalStackLayout Spacing="15" VerticalOptions="Center">
-                          
-                            <Frame CornerRadius="30" 
-                                HeightRequest="60" 
-                                WidthRequest="60" 
-                                Padding="0" 
-                                HorizontalOptions="Start"
-                                IsClippedToBounds="True"
-                                BorderColor="Gray">
+                        <!-- Используем Grid для идеального выравнивания: Картинка (Слева) | Текст (По центру) | Рейтинг (Справа) -->
+                        <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="15">
 
-                                <Image Source="{Binding Id, Converter={StaticResource IdToImage}}"
-                                    Aspect="AspectFill" 
+                            <!-- Обложка -->
+                            <Border Grid.Column="0"
+                                    Stroke="Transparent"
+                                    StrokeShape="RoundRectangle 30" 
                                     HeightRequest="60" 
-                                    WidthRequest="60" />
-                            </Frame>
+                                    WidthRequest="60" 
+                                    >
+                                <Image Source="{Binding Id, Converter={StaticResource IdToImage}}"
+                                       Aspect="AspectFill" 
+                                       HeightRequest="60" 
+                                       WidthRequest="60" />
+                            </Border>
 
-                            <Label Text="{Binding SongInformation.Name}" 
-                                   VerticalOptions="Center" 
-                                   FontSize="18" />
-                            <Label Text="{Binding Rate}" FontSize="15" TextColor="Gray"/>
-                           
-                        </HorizontalStackLayout>
-                       
-                    </Frame>
+                            <!-- Название песни и жанр -->
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="4">
+                                <Label Text="{Binding SongInformation.Name}" 
+                                       FontAttributes="Bold"
+                                       TextColor="#FFFFFF"
+                                       FontSize="17" 
+                                       LineBreakMode="TailTruncation" />
 
+                                <!-- Выводим жанр под названием (если он есть в SongInformation) -->
+                                <Label Text="{Binding SongInformation.Genre}" 
+                                       FontSize="13" 
+                                       TextColor="#8E8E93" />
+                            </VerticalStackLayout>
+
+                            <!-- Рейтинг -->
+                            <HorizontalStackLayout Grid.Column="2" VerticalOptions="Center" Spacing="4">
+                                <!-- Звездочка красится вашим конвертером -->
+                                <Label Text="★" 
+                                       TextColor="{Binding Rate, Converter={StaticResource RateToColor}}" 
+                                       FontSize="18" 
+                                       VerticalOptions="Center"/>
+                                <Label Text="{Binding Rate}" 
+                                       FontSize="16" 
+                                       FontAttributes="Bold" 
+                                       TextColor="#FFFFFF"
+                                       VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+
+                        </Grid>
+                    </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

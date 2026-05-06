@@ -5,88 +5,196 @@
              xmlns:models="clr-namespace:Danilkova_453504.UI.ViewModels"
              x:DataType="models:SongInformationViewModel"
              xmlns:conv="clr-namespace:Danilkova_453504.UI.ValueConverters"
-             Title="SongInformation">
-
+             Title="Details"
+             BackgroundColor="#121212"
+             Shell.BackgroundColor="#121212"
+             Shell.ForegroundColor="White"
+             Shell.TitleColor="White">
 
     <ContentPage.Resources>
         <conv:IdToImageConverter x:Key="IdToImage" />
     </ContentPage.Resources>
 
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Edit Photo" Command="{Binding PickImageOnPageCommand}" />
-        <ToolbarItem Text="Edit" Command="{Binding UpdateSongOnPageCommand}" />
-        <ToolbarItem Text="Delete" Command="{Binding DeleteSongOnPageCommand}" />
-    </ContentPage.ToolbarItems>
 
-    
-    <VerticalStackLayout Padding="20" Spacing="10">
-        <Frame Margin="0,10"
-                   Padding="10" 
-                   CornerRadius="8" 
-                   HasShadow="True" 
-                   BorderColor="LightGray"
-                   HorizontalOptions="Center"
-                   BackgroundColor="White">
+    <Shell.TitleView>
+        <!-- 2. Сетка: три кнопки слева (Auto) и MUSIC справа (*) -->
+        <Grid ColumnDefinitions="Auto, Auto, Auto, *" 
+              Padding="10,0,20,0" 
+              ColumnSpacing="20" 
+              VerticalOptions="Fill">
 
-            <Image Source="{Binding SongId, Converter={StaticResource IdToImage}}"
-                       HeightRequest="250"
-                       WidthRequest="250"
-                       Aspect="AspectFill">
-                
-                <Image.GestureRecognizers>
+            <!-- Кнопка 1 -->
+            <Label Grid.Column="0"
+                   Text="Edit Photo"
+                   TextColor="White" 
+                   FontAttributes="Bold"
+                   FontSize="14"
+                   VerticalOptions="Center">
+                <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding PickImageOnPageCommand}" />
-                </Image.GestureRecognizers>
-            </Image>
-        </Frame>
+                </Label.GestureRecognizers>
+            </Label>
 
-        <Frame BackgroundColor="#F8F8F8" CornerRadius="10" BorderColor="#E0E0E0" Padding="15">
+            <!-- Кнопка 2 -->
+            <Label Grid.Column="1"
+                   Text="Edit"
+                   TextColor="White"
+                   FontAttributes="Bold"
+                   FontSize="14"
+                   VerticalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding UpdateSongOnPageCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+
+            <!-- Кнопка 3 -->
+            <Label Grid.Column="2"
+                   Text="Delete"
+                   TextColor="#FF5252" 
+                   FontAttributes="Bold"
+                   FontSize="14"
+                   VerticalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding DeleteSongOnPageCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+
+            <!-- Надпись MUSIC справа -->
+            <Label Grid.Column="3" 
+                   Text="MUSIC" 
+                   TextColor="White"
+                   FontAttributes="Bold"
+                   FontSize="18"
+                   VerticalOptions="Center"
+                   HorizontalOptions="End" 
+                   CharacterSpacing="2"/>
+        </Grid>
+    </Shell.TitleView>
+
+
+    <ScrollView>
+        <VerticalStackLayout Padding="25" Spacing="25">
+
+            <!-- 2. Блок обложки с зеленым свечением -->
+            <Border StrokeThickness="3"
+                    StrokeShape="RoundRectangle 20"
+                    HeightRequest="280"
+                    WidthRequest="280"
+                    HorizontalOptions="Center"
+                    BackgroundColor="#1C1C1E">
+
+                <Border.Stroke>
+                    <LinearGradientBrush EndPoint="1,1">
+                        <GradientStop Color="#1DB954" Offset="0.1" />
+                        <GradientStop Color="#121212" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Stroke>
+
+                <Border.Shadow>
+                    <Shadow Brush="#1DB954" Offset="0,0" Radius="30" Opacity="0.3" />
+                </Border.Shadow>
+
+                <Image Source="{Binding SongId, Converter={StaticResource IdToImage}}"
+                       Aspect="AspectFill">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PickImageOnPageCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>
+            </Border>
+
+            <!-- 3. Основная информация (Название) -->
+            <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                <Label Text="{Binding Song.SongInformation.Name}" 
+                       FontSize="30" 
+                       FontAttributes="Bold" 
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center"/>
+               
+            </VerticalStackLayout>
+
+            <!-- 4. Карточка с деталями (Жанр, Длительность, Рейтинг) -->
+            <Border BackgroundColor="#1C1C1E" 
+                    Padding="20" 
+                    StrokeShape="RoundRectangle 16"
+                    Stroke="Transparent">
+
+                <VerticalStackLayout Spacing="15">
+
+                    <Grid ColumnDefinitions="Auto, *">
+                        <Label Text="Genre" TextColor="#8E8E93" FontSize="15" />
+                        <Label Grid.Column="1" Text="{Binding Song.SongInformation.Genre}" 
+                               TextColor="White" FontAttributes="Bold" HorizontalOptions="End" FontSize="16"/>
+                    </Grid>
+
+                    <BoxView HeightRequest="1" Color="#2C2C2E" />
+
+                    <Grid ColumnDefinitions="Auto, *">
+                        <Label Text="Duration" TextColor="#8E8E93" FontSize="15" />
+                        <Label Grid.Column="1" Text="{Binding Song.SongInformation.Continuation, StringFormat='{0} min'}" 
+                               TextColor="White" FontAttributes="Bold" HorizontalOptions="End" FontSize="16"/>
+                    </Grid>
+
+                    <BoxView HeightRequest="1" Color="#2C2C2E" />
+
+                    <Grid ColumnDefinitions="Auto, *">
+                        <Label Text="Rating" TextColor="#8E8E93" FontSize="15" />
+                        <HorizontalStackLayout Grid.Column="1" HorizontalOptions="End" Spacing="4">
+                            <Label Text="★" TextColor="#1DB954" FontSize="18" VerticalOptions="Center"/>
+                            <Label Text="{Binding Song.Rate, StringFormat='{0}/100'}" 
+                                   TextColor="White" FontAttributes="Bold" FontSize="16" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                    </Grid>
+
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 5. Секция смены исполнителя (в стиле пикера с главной) -->
             <VerticalStackLayout Spacing="10">
-                <Label Text="Assign Singer" FontSize="14" FontAttributes="Bold" TextColor="MediumPurple" />
+                <Label Text="Assign to Another Singer" 
+                       TextColor="#8E8E93" 
+                       FontSize="13" 
+                       FontAttributes="Bold"
+                       Margin="5,0"/>
 
-                <Grid ColumnDefinitions="*, Auto" ColumnSpacing="10">
-                    <Picker Grid.Column="0"
-                                Title="Select singer..."
+                <Border StrokeThickness="2"
+                        StrokeShape="RoundRectangle 15"
+                        BackgroundColor="#252525" 
+                        HeightRequest="60">
+
+                    <Border.Stroke>
+                        <LinearGradientBrush EndPoint="1,0">
+                            <GradientStop Color="#1DB954" Offset="0.1" />
+                            <GradientStop Color="#191414" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Border.Stroke>
+
+                    <Grid ColumnDefinitions="*, Auto" Padding="15,0">
+                        <Picker Grid.Column="0"
+                                
+                                BackgroundColor="White"
+                                TextColor="Black"
+                                FontSize="15"
+                                FontAttributes="Bold"
                                 ItemsSource="{Binding Singers}"
                                 ItemDisplayBinding="{Binding Name}" 
                                 SelectedItem="{Binding SelectedSinger}"
                                 VerticalOptions="Center" />
 
-                    <Button Grid.Column="1"
-                                Text="Apply"
-                                Command="{Binding AlterSingerOfSongCommand}"
-                                BackgroundColor="MediumPurple"
-                                TextColor="White"
-                                HeightRequest="40"
-                                Padding="15,0" />
-                </Grid>
+                        <Label Grid.Column="1"
+                               Text="APPLY"
+                               TextColor="#1DB954"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"
+                               Padding="15">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding AlterSingerOfSongCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                </Border>
             </VerticalStackLayout>
-        </Frame>
 
-        <Label Text="{Binding Song.SongInformation.Name}" 
-               FontSize="28" 
-               FontAttributes="Bold" 
-               HorizontalOptions="Center" />
-
-        <BoxView HeightRequest="1" Color="Gray" Margin="0,10" />
-
-        
-        <HorizontalStackLayout Spacing="5">
-            <Label Text="Genre:" FontAttributes="Bold" />
-            <Label Text="{Binding Song.SongInformation.Genre}" />
-        </HorizontalStackLayout>
-
-       
-        <HorizontalStackLayout Spacing="5">
-            <Label Text="Duration:" FontAttributes="Bold" />
-            <Label Text="{Binding Song.SongInformation.Continuation, StringFormat='{0} min'}" />
-        </HorizontalStackLayout>
-
-        
-        <HorizontalStackLayout Spacing="5">
-            <Label Text="Rating:" FontAttributes="Bold" />
-            <Label Text="{Binding Song.Rate, StringFormat='{0}/100'}" 
-                   TextColor="DarkGreen" />
-        </HorizontalStackLayout>
-
-    </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

@@ -2,29 +2,106 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Danilkova_453504.UI.Pages.UpdateSong"
-             Title="UpdateSong">
-    <VerticalStackLayout Padding="20" Spacing="15">
-        <Label Text="Update Song" FontSize="20" FontAttributes="Bold" />
+             Title="Edit Song"
+             BackgroundColor="#121212"
+             Shell.BackgroundColor="#121212"
+             Shell.ForegroundColor="White">
 
-        <Entry Placeholder="Name" 
-        Text="{Binding Name}" />
+    <Shell.TitleView>
+        <Grid ColumnDefinitions="Auto, Auto, *" Padding="10,0,20,0" ColumnSpacing="20">
 
-        <Entry Placeholder="Cont (example, 3.45)" 
-        Text="{Binding Continuation}" 
-        Keyboard="Numeric" />
+            <!-- Кнопка Отмена -->
+            <Label Grid.Column="0"
+                   Text="Cancel"
+                   TextColor="#FF5252" 
+                   FontAttributes="Bold"
+                   FontSize="14"
+                   VerticalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CancelCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
 
-        <Entry Placeholder="Genre" 
-        Text="{Binding Genre}" />
 
-        <Entry Placeholder="Rate (1-10)" 
-        Text="{Binding Rate}" 
-        Keyboard="Numeric" />
+            <!-- Логотип MUSIC -->
+            <Label Grid.Column="2" 
+                   Text="MUSIC" 
+                   TextColor="White"
+                   FontAttributes="Bold"
+                   FontSize="18"
+                   VerticalOptions="Center"
+                   HorizontalOptions="End" 
+                   CharacterSpacing="2"/>
+        </Grid>
+    </Shell.TitleView>
 
-        <Button Text="Update" 
-         Command="{Binding UpdateSongCommand}" 
-         BackgroundColor="Green" 
-         TextColor="White" />
+    <ScrollView>
+        <VerticalStackLayout Padding="25" Spacing="20">
 
-       
-    </VerticalStackLayout>
+            <Label Text="UPDATE SONG" 
+                   TextColor="#1DB954" 
+                   FontSize="12" 
+                   FontAttributes="Bold" 
+                   CharacterSpacing="2"
+                   HorizontalOptions="Center"
+                   Margin="0,10,0,10"/>
+
+            <!-- Поле: Название -->
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Song Title" TextColor="#8E8E93" FontSize="13" Margin="5,0"/>
+                <Border BackgroundColor="#252525" StrokeThickness="0" StrokeShape="RoundRectangle 10" Padding="15,0">
+                    <Entry Text="{Binding Name}" 
+                           Placeholder="Name" 
+                           PlaceholderColor="#555555"
+                           TextColor="White" />
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Поле: Длительность -->
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Duration (e.g. 3.45)" TextColor="#8E8E93" FontSize="13" Margin="5,0"/>
+                <Border BackgroundColor="#252525" StrokeThickness="0" StrokeShape="RoundRectangle 10" Padding="15,0">
+                    <Entry Text="{Binding Continuation}" 
+                           Placeholder="Continuation" 
+                           Keyboard="Numeric"
+                           PlaceholderColor="#555555"
+                           TextColor="White" />
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Поле: Жанр -->
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Genre" TextColor="#8E8E93" FontSize="13" Margin="5,0"/>
+                <Border BackgroundColor="#252525" StrokeThickness="0" StrokeShape="RoundRectangle 10" Padding="15,0">
+                    <Entry Text="{Binding Genre}" 
+                           Placeholder="Genre" 
+                           PlaceholderColor="#555555"
+                           TextColor="White" />
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Поле: Рейтинг -->
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Rating (1-10)" TextColor="#8E8E93" FontSize="13" Margin="5,0"/>
+                <Border BackgroundColor="#252525" StrokeThickness="0" StrokeShape="RoundRectangle 10" Padding="15,0">
+                    <Entry Text="{Binding Rate}" 
+                           Placeholder="Rate" 
+                           Keyboard="Numeric"
+                           PlaceholderColor="#555555"
+                           TextColor="White" />
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Большая кнопка Обновить внизу -->
+            <Button Text="UPDATE SONG" 
+                    Command="{Binding UpdateSongCommand}" 
+                    BackgroundColor="#1DB954" 
+                    TextColor="Black"
+                    FontAttributes="Bold"
+                    CornerRadius="25"
+                    HeightRequest="50"
+                    Margin="0,30,0,0" />
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
